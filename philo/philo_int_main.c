@@ -1,4 +1,4 @@
-
+  
 #include "philo_header.h"
 
 
@@ -7,6 +7,10 @@
 
 
 
-int main(int ac , char **av){
-     printf("%s\n",av[1]);
+
+
+
+int main(){
+       printf("Hello the world\n");
+       return 1;
 }

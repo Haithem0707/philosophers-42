@@ -1,0 +1,8 @@
+#Ignore the Screenshot
+screenshoot/
+
+#ignore the .o file
+philo/build/
+
+#ignore the Targe
+philo/philo
