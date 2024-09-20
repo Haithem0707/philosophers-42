@@ -5,7 +5,8 @@ YELLOW = \033[0;33m
 RESET = \033[0m
 
 TARGET = philo
-SOURCES = philo/philo_int_main.c philo/utils.c philo/error_managment.c
+SOURCES = philo/philo_int_main.c philo/utils.c philo/error_managment.c philo/init_control.c philo/thread_creation.c philo/project_manager.c \
+		  philo/philos_routine.c
 SRCDIR = philo/
 BUILDDIR = philo/build
 
