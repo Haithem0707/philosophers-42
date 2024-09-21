@@ -17,7 +17,7 @@ OBJECTS = $(SOURCES:$(SRCDIR)%.c=$(BUILDDIR)/%.o)
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-all: $(TARGET)
+all: $(TARGET) credit
 
 $(TARGET): $(OBJECTS)
 	@echo "$(GREEN)Linking $(TARGET)...$(RESET)"
@@ -40,3 +40,12 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
+
+credit:
+	@echo "▀██▀▀█▄  ▀██       ██  ▀██                                  ▀██"
+	@echo " ██   ██  ██ ▄▄   ▄▄▄   ██    ▄▄▄    ▄▄▄▄    ▄▄▄   ▄▄▄ ▄▄▄   ██ ▄▄     ▄▄▄▄  ▄▄▄ ▄▄   ▄▄▄▄"
+	@echo " ██▄▄▄█▀  ██▀ ██   ██   ██  ▄█  ▀█▄ ██▄ ▀  ▄█  ▀█▄  ██▀  ██  ██▀ ██  ▄█▄▄▄██  ██▀ ▀▀ ██▄ ▀"
+	@echo " ██       ██  ██   ██   ██  ██   ██ ▄ ▀█▄▄ ██   ██  ██    █  ██  ██  ██       ██     ▄ ▀█▄▄"
+	@echo "▄██▄     ▄██▄ ██▄ ▄██▄ ▄██▄  ▀█▄▄█▀ █▀▄▄█▀  ▀█▄▄█▀  ██▄▄▄▀  ▄██▄ ██▄  ▀█▄▄▄▀ ▄██▄    █▀▄▄█▀"
+	@echo "                                                    ██"
+	@echo "         Made with love by : \033[1;91mhbendjab\033[m                 ▀▀▀▀"

@@ -50,7 +50,7 @@ bool	is_eat(t_philo_data *philos)
 
 	i = 0;
 	eated = 0;
-	if (philos[0].num_of_philos == -1)
+	if (philos[0].num_time_to_eat == -1)
 		return (false);
 	while (i < philos[0].num_of_philos)
 	{
