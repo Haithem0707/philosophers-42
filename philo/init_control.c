@@ -36,10 +36,12 @@ void	init_philosophers(t_philo_data *philos, t_control *program,
 		philos[i].meal_lock = &program->meal_lock;
 		philos[i].dead = &program->dead_flag;
 		philos[i].l_fork = &fork[i];
+		philos[i].l_fork_taken = 0;
 		if (i == 0)
 			philos[i].r_fork = &fork[philos[i].num_of_philos - 1];
 		else
 			philos[i].r_fork = &fork[i - 1];
+		philos[i].r_fork_taken = 0;
 		i++;
 	}
 }

@@ -1,5 +1,4 @@
 #include "philo_header.h"
-#include <stdio.h>
 
 void	philos_status(char *str, t_philo_data *philos, int philos_id)
 {
