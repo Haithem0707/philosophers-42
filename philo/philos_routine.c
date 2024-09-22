@@ -43,6 +43,10 @@ void	thinking(t_philo_data *philos)
 }
 void	sleeping(t_philo_data *philos)
 {
+		 pthread_mutex_lock(philos->meal_lock);
+    philos->last_meal = get_current_time_in_miliseconds();
+    pthread_mutex_unlock(philos->meal_lock);
+	philos_status(MAGENTA "is Thinking" THINKING, philos, philos->id);
 	philos_status(GREEN "is sleeping" SLEEPING, philos, philos->id);
 	ft_usleep(philos->time_to_sleep,philos);
 }
