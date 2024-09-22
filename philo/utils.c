@@ -67,13 +67,17 @@ void	ft_putstr_fd(char *s, int fd)
 		return ;
 	write(fd, s, ft_strlen(s));
 }
-int	ft_usleep(size_t milliseconds)
+int	ft_usleep(size_t milliseconds, t_philo_data *philos)
 {
 	size_t	start;
 
 	start = get_current_time_in_miliseconds();
 	while ((get_current_time_in_miliseconds() - start) < milliseconds)
+	{
+		if (is_dead_daily_check(philos))
+			return (1);
 		usleep(500);
+	}
 	return (0);
 }
 size_t	get_current_time_in_miliseconds(void)

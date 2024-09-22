@@ -67,7 +67,7 @@ int					ft_atoi(const char *str);
 void				throw_error(int error_num);
 bool				is_valid(char **user_input);
 size_t				get_current_time_in_miliseconds(void);
-int					ft_usleep(size_t milliseconds);
+int					ft_usleep(size_t milliseconds,t_philo_data *philos);
 void				init_control(t_control *program, t_philo_data *philos);
 void				init_fork(pthread_mutex_t *fork, int number_of_philos);
 void				init_philosophers(t_philo_data *philos, t_control *program,

@@ -17,7 +17,7 @@ void	eating(t_philo_data *philos)
 	philos_status(CYAN "Has taken a fork" FORKING, philos, philos->id);
 	if (philos->num_of_philos == 1)
 	{
-		ft_usleep(philos->time_to_die);
+		ft_usleep(philos->time_to_die,philos);
 		pthread_mutex_unlock(philos->r_fork);
 		return ;
 	}
@@ -29,25 +29,22 @@ void	eating(t_philo_data *philos)
     philos->last_meal = get_current_time_in_miliseconds();
     philos->meals_eaten++;
     pthread_mutex_unlock(philos->meal_lock);
-    ft_usleep(philos->time_to_eat);
+    ft_usleep(philos->time_to_eat,philos);
     philos->eating = 0;
     pthread_mutex_unlock(philos->l_fork);
     pthread_mutex_unlock(philos->r_fork);
 }
 void	thinking(t_philo_data *philos)
 {
-<<<<<<< HEAD
-=======
 	 pthread_mutex_lock(philos->meal_lock);
     philos->last_meal = get_current_time_in_miliseconds();
     pthread_mutex_unlock(philos->meal_lock);
->>>>>>> main
 	philos_status(MAGENTA "is Thinking" THINKING, philos, philos->id);
 }
 void	sleeping(t_philo_data *philos)
 {
 	philos_status(GREEN "is sleeping" SLEEPING, philos, philos->id);
-	ft_usleep(philos->time_to_sleep);
+	ft_usleep(philos->time_to_sleep,philos);
 }
 
 void	*philos_daily_routine(void *pointer)
@@ -55,7 +52,7 @@ void	*philos_daily_routine(void *pointer)
 	t_philo_data *philos = (t_philo_data *)pointer;
 
 	if (philos->id % 2 == 0)
-		ft_usleep(1);
+		ft_usleep(1,philos);
 	
 
 	while (!is_dead_daily_check(philos))
