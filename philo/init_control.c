@@ -1,7 +1,4 @@
 #include "philo_header.h"
-#include <bits/pthreadtypes.h>
-#include <pthread.h>
-#include <stdio.h>
 
 void	init_input_from_user(t_philo_data *philo, char **av)
 {
@@ -18,7 +15,7 @@ void	init_input_from_user(t_philo_data *philo, char **av)
 // init philos
 
 void	init_philosophers(t_philo_data *philos, t_control *program,
-		pthread_mutex_t *fork, char **av)
+		pthread_mutex_t *fork,pthread_mutex_t *fork_taken, char **av)
 {
 	int	i;
 
@@ -42,12 +39,14 @@ void	init_philosophers(t_philo_data *philos, t_control *program,
 		else
 			philos[i].r_fork = &fork[i - 1];
 		philos[i].r_fork_taken = 0;
+		philos[i].r_fork_taken_mutex = &fork_taken[i];              // Right fork lock
+		philos[i].l_fork_taken_mutex= &fork_taken[(i + 1) % philos[i].num_of_philos];  // Left fork lock
 		i++;
 	}
 }
 
 // init forks;
-void	init_fork(pthread_mutex_t *fork, int number_of_philos)
+void	init_fork(pthread_mutex_t *fork,pthread_mutex_t *fork_taken, int number_of_philos)
 {
 	int	i;
 
@@ -55,6 +54,12 @@ void	init_fork(pthread_mutex_t *fork, int number_of_philos)
 	while (i < number_of_philos)
 	{
 		pthread_mutex_init(&fork[i], NULL);
+		i++;
+	}
+	i= 0;
+		while (i < number_of_philos)
+	{
+		pthread_mutex_init(&fork_taken[i], NULL);
 		i++;
 	}
 }

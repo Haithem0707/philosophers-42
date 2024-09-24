@@ -1,8 +1,5 @@
 #ifndef PHILO_HEADER
 # define PHILO_HEADER
-
-# include <sched.h>
-#
 # define RESET "\x1b[0m"
 # define BLACK "\x1b[30m"
 # define RED "\x1b[31m"
@@ -49,6 +46,8 @@ typedef struct s_philo_data
 	int				*dead;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
+	pthread_mutex_t	*r_fork_taken_mutex;
+	pthread_mutex_t 	*l_fork_taken_mutex;
 	int 			l_fork_taken;
 	int 			r_fork_taken;
 	pthread_mutex_t	*write_lock;
@@ -71,9 +70,9 @@ bool				is_valid(char **user_input);
 size_t				get_current_time_in_miliseconds(void);
 int					ft_usleep(size_t milliseconds,t_philo_data *philos);
 void				init_control(t_control *program, t_philo_data *philos);
-void				init_fork(pthread_mutex_t *fork, int number_of_philos);
+void				init_fork(pthread_mutex_t *fork,pthread_mutex_t *fork_taken, int number_of_philos);
 void				init_philosophers(t_philo_data *philos, t_control *program,
-						pthread_mutex_t *fork, char **av);
+						pthread_mutex_t *fork, pthread_mutex_t *fork_taken,char **av);
 void				init_input_from_user(t_philo_data *philo, char **av);
 void				*project_manager(void *pointer);
 void				thread_creation(t_control *program, pthread_mutex_t *fork);

@@ -8,36 +8,48 @@ bool	is_dead_daily_check(t_philo_data *philo)
 	pthread_mutex_unlock(philo->dead_lock);
 	return (false);
 }
-void	lock_fork(pthread_mutex_t *fork, int *fork_taken, t_philo_data *philos,
-		char *status)
-{
-	pthread_mutex_lock(fork);
-	if (!(*fork_taken))
-	{
-		*fork_taken = 1;
-		philos_status(status, philos, philos->id);
-	}
-	pthread_mutex_unlock(fork);
-}
-
-void	unlock_fork(pthread_mutex_t *fork, int *fork_taken)
-{
-	pthread_mutex_lock(fork);
-	*fork_taken = 0;
-	pthread_mutex_unlock(fork);
-}
 void	eating(t_philo_data *philos)
 {
-	lock_fork(philos->r_fork, &philos->r_fork_taken, philos,
-		CYAN "Has taken a fork" FORKING);
+
+	pthread_mutex_lock(philos->r_fork_taken_mutex);
+	if (philos->r_fork_taken == 0)
+	{
+		philos->r_fork_taken = 1;
+		pthread_mutex_unlock(philos->r_fork_taken_mutex);
+		pthread_mutex_lock(philos->r_fork);
+		philos_status(CYAN "Has taken a fork" FORKING, philos, philos->id);
+	}
+	else
+	{
+		pthread_mutex_unlock(philos->r_fork_taken_mutex);
+		return ;
+	}
 	if (philos->num_of_philos == 1)
 	{
 		ft_usleep(philos->time_to_die, philos);
-		unlock_fork(philos->r_fork, &philos->r_fork_taken);
+		pthread_mutex_unlock(philos->r_fork);
+		pthread_mutex_lock(philos->r_fork_taken_mutex);
+		philos->r_fork_taken = 0; // Mark fork as available
+		pthread_mutex_unlock(philos->r_fork_taken_mutex);
 		return ;
 	}
-	lock_fork(philos->l_fork, &philos->l_fork_taken, philos,
-		CYAN "Has taken a fork" FORKING);
+	pthread_mutex_lock(philos->l_fork_taken_mutex);
+	if (philos->l_fork_taken == 0)
+	{
+		philos->l_fork_taken = 1;
+		pthread_mutex_unlock(philos->l_fork_taken_mutex);
+		pthread_mutex_lock(philos->l_fork);
+		philos_status(CYAN "Has taken a fork" FORKING, philos, philos->id);
+	}
+	else
+	{
+		pthread_mutex_unlock(philos->r_fork);
+		pthread_mutex_lock(philos->r_fork_taken_mutex);
+		philos->r_fork_taken = 0;
+		pthread_mutex_unlock(philos->r_fork_taken_mutex);
+		pthread_mutex_unlock(philos->l_fork_taken_mutex);
+		return ;
+	}
 	philos->eating = 1;
 	philos_status(BLUE "is eating " EATING, philos, philos->id);
 	pthread_mutex_lock(philos->meal_lock);
@@ -45,15 +57,18 @@ void	eating(t_philo_data *philos)
 	philos->meals_eaten++;
 	pthread_mutex_unlock(philos->meal_lock);
 	ft_usleep(philos->time_to_eat, philos);
-	unlock_fork(philos->r_fork, &philos->r_fork_taken);
-	unlock_fork(philos->l_fork, &philos->l_fork_taken);
 	philos->eating = 0;
+	pthread_mutex_unlock(philos->l_fork);
+	pthread_mutex_lock(philos->l_fork_taken_mutex);
+	philos->l_fork_taken = 0;
+	pthread_mutex_unlock(philos->l_fork_taken_mutex);
+	pthread_mutex_unlock(philos->r_fork);
+	pthread_mutex_lock(philos->r_fork_taken_mutex);
+	philos->r_fork_taken = 0;
+	pthread_mutex_unlock(philos->r_fork_taken_mutex);
 }
 void	thinking(t_philo_data *philos)
 {
-	pthread_mutex_lock(philos->meal_lock);
-	philos->last_meal = get_current_time_in_miliseconds();
-	pthread_mutex_unlock(philos->meal_lock);
 	philos_status(MAGENTA "is Thinking" THINKING, philos, philos->id);
 }
 void	sleeping(t_philo_data *philos)
