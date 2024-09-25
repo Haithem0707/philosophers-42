@@ -1,6 +1,5 @@
 #include "philo_header.h"
 
-
 void	throw_error(int error_num)
 {
 	if (error_num == 1)

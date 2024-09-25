@@ -1,5 +1,4 @@
 #include "philo_header.h"
-#include <stdio.h>
 
 void	philos_status(char *str, t_philo_data *philos, int philos_id)
 {
@@ -7,11 +6,11 @@ void	philos_status(char *str, t_philo_data *philos, int philos_id)
 
 	pthread_mutex_lock(philos->write_lock);
 	time = get_current_time_in_miliseconds() - philos->start_time;
-	if (!is_dead_daily_check(philos)){
+	if (!is_dead_daily_check(philos))
+	{
 		printf("%zu %d %s\n", time, philos_id, str);
 	}
 	pthread_mutex_unlock(philos->write_lock);
-		
 }
 
 bool	philos_dead_or_not(t_philo_data *philos, size_t time_to_die)
@@ -55,7 +54,6 @@ bool	is_eat(t_philo_data *philos)
 	while (i < philos[0].num_of_philos)
 	{
 		pthread_mutex_lock(philos[i].meal_lock);
-		
 		if (philos[i].meals_eaten >= philos[i].num_time_to_eat)
 			eated++;
 		pthread_mutex_unlock(philos[i].meal_lock);
@@ -68,7 +66,7 @@ bool	is_eat(t_philo_data *philos)
 		pthread_mutex_unlock(philos[0].dead_lock);
 		return (true);
 	}
-	return (false); 
+	return (false);
 }
 
 void	*project_manager(void *pointer)
@@ -78,7 +76,6 @@ void	*project_manager(void *pointer)
 	philos = (t_philo_data *)pointer;
 	while (1)
 		if (is_dead(philos) || is_eat(philos))
-			 break ;
-
+			break ;
 	return (pointer);
 }
