@@ -41,49 +41,25 @@ void	update_meal_status(t_philo_data *philos)
 	philos->meals_eaten++;
 	pthread_mutex_unlock(philos->meal_lock);
 }
-int	handle_single_philosopher(t_philo_data *philos)
-{
-	if (!take_fork(philos->l_fork, philos->l_fork_taken_mutex,
-			&philos->l_fork_taken, philos, CYAN "Has taken a fork"))
-		return (0);
-	ft_usleep(philos->time_to_die, philos);
-	philos_status(RED "has died", philos, philos->id);
-	release_fork(philos->l_fork, philos->l_fork_taken_mutex,
-		&philos->l_fork_taken);
-	return (1);
-}
-int	take_forks(t_philo_data *philos)
-{
-	pthread_mutex_t	*first_fork;
-	pthread_mutex_t	*second_fork;
-	pthread_mutex_t	*first_mutex;
-	pthread_mutex_t	*second_mutex;
-
-	first_fork = (philos->id % 2 == 0) ? philos->l_fork : philos->r_fork;
-	second_fork = (philos->id % 2 == 0) ? philos->r_fork : philos->l_fork;
-	first_mutex = (philos->id
-			% 2 == 0) ? philos->l_fork_taken_mutex : philos->r_fork_taken_mutex;
-	second_mutex = (philos->id
-			% 2 == 0) ? philos->r_fork_taken_mutex : philos->l_fork_taken_mutex;
-	if (!take_fork(first_fork, first_mutex, &philos->l_fork_taken, philos,
-			CYAN "Has taken a fork") || !take_fork(second_fork, second_mutex,
-			&philos->r_fork_taken, philos, CYAN "Has taken a fork"))
-	{
-		release_fork(first_fork, first_mutex, &philos->l_fork_taken);
-		return (0);
-	}
-	return (1);
-}
-
 void	eating(t_philo_data *philos)
 {
+	if (!take_fork(philos->r_fork, philos->r_fork_taken_mutex,
+			&philos->r_fork_taken, philos, CYAN "Has taken a fork"))
+		return ;
 	if (philos->num_of_philos == 1)
 	{
-		handle_single_philosopher(philos);
+		ft_usleep(philos->time_to_die, philos);
+		release_fork(philos->r_fork, philos->r_fork_taken_mutex,
+			&philos->r_fork_taken);
 		return ;
 	}
-	if (!take_forks(philos))
+	if (!take_fork(philos->l_fork, philos->l_fork_taken_mutex,
+			&philos->l_fork_taken, philos, CYAN "Has taken a fork"))
+	{
+		release_fork(philos->r_fork, philos->r_fork_taken_mutex,
+			&philos->r_fork_taken);
 		return ;
+	}
 	philos->eating = 1;
 	philos_status(BLUE "is eating " EATING, philos, philos->id);
 	update_meal_status(philos);
