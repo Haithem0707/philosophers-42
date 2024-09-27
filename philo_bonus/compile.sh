@@ -1,4 +1,5 @@
 #!/bin/bash
 
 cd ../
-make re 
+make fclean
+make bonus

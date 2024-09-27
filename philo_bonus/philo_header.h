@@ -1,5 +1,7 @@
 #ifndef PHILO_HEADER
 # define PHILO_HEADER
+# include <semaphore.h>
+# include <sys/types.h>
 # define RESET "\x1b[0m"
 # define BLACK "\x1b[30m"
 # define RED "\x1b[31m"
@@ -29,61 +31,41 @@
 # include <sys/time.h>
 # include <time.h>
 # include <unistd.h>
+#include <semaphore.h>
 # define PHILO_MAX 200
-typedef struct s_philo_data
-{
-	pthread_t		thread;
-	int				id;
-	size_t			time_to_die;
-	size_t			time_to_eat;
-	size_t			time_to_sleep;
-	int				eating;
-	int				meals_eaten;
-	size_t			start_time;
-	int				num_of_philos;
-	size_t			last_meal;
-	int				num_time_to_eat;
-	int				*dead;
-	pthread_mutex_t	*r_fork;
-	pthread_mutex_t	*l_fork;
-	pthread_mutex_t	*r_fork_taken_mutex;
-	pthread_mutex_t	*l_fork_taken_mutex;
-	int				l_fork_taken;
-	int				r_fork_taken;
-	pthread_mutex_t	*write_lock;
-	pthread_mutex_t	*dead_lock;
-	pthread_mutex_t	*meal_lock;
-}					t_philo_data;
+
 typedef struct s_control
 {
-	int				dead_flag;
-	pthread_mutex_t	dead_lock;
-	pthread_mutex_t	meal_lock;
-	pthread_mutex_t	write_lock;
-	t_philo_data	*philos;
+	sem_t			*forks;
+	sem_t			*message;
+	sem_t			*death;
+	sem_t			*stop;
+	unsigned int	start;
+	int				philo_number;
+	int				time_to_die;
+	int				time_to_sleep;
+	int				time_to_think;
+	int				time_to_eat;
+	int				eat_counter;
+	int				max_eat;
+	int				current_eat;
 
 }					t_control;
+typedef struct s_philo_data
+{
+	t_control		*data;
+	pid_t			pid;
+	unsigned int	eating_time;
+	unsigned int	next_meal;
+	int				index;
+	int				is_dead;
+	int				eat_counter;
+}					t_philo_data;
 void				ft_putstr_fd(char *s, int fd);
 int					ft_atoi(const char *str);
 void				throw_error(int error_num);
 bool				is_valid(char **user_input);
 size_t				get_current_time_in_miliseconds(void);
-int					ft_usleep(size_t milliseconds, t_philo_data *philos);
-void				init_control(t_control *program, t_philo_data *philos);
-void				init_fork(pthread_mutex_t *fork,
-						pthread_mutex_t *fork_taken, int number_of_philos);
-void				init_philosophers(t_philo_data *philos, t_control *program,
-						pthread_mutex_t *fork, pthread_mutex_t *fork_taken,
-						char **av);
-void				init_input_from_user(t_philo_data *philo, char **av);
-void				*project_manager(void *pointer);
-void				thread_creation(t_control *program, pthread_mutex_t *fork);
-void				*philos_daily_routine(void *pointer);
-void				philos_status(char *str, t_philo_data *philos,
-						int philos_id);
-bool				is_dead(t_philo_data *philos);
-void				destroy_all(char *str, t_control *program,
-						pthread_mutex_t *fork);
+int					ft_usleep(size_t milliseconds);
 
-bool				is_dead_daily_check(t_philo_data *philo);
 #endif

@@ -1,9 +1,6 @@
 
 
 #include "philo_header.h"
-#include <bits/pthreadtypes.h>
-#include <pthread.h>
-
 int	ft_atoi(const char *str)
 {
 	int					i;
@@ -45,37 +42,19 @@ size_t	ft_strlen(const char *s)
 	return (counter);
 }
 
-void	destroy_all(char *str, t_control *program, pthread_mutex_t *fork)
-{
-	int	i;
-
-	i = 0;
-	if (str)
-		ft_putstr_fd(str, 2);
-	pthread_mutex_destroy(&program->write_lock);
-	pthread_mutex_destroy(&program->meal_lock);
-	pthread_mutex_destroy(&program->dead_lock);
-	while (i < program->philos[0].num_of_philos)
-	{
-		pthread_mutex_destroy(&fork[i]);
-		i++;
-	}
-}
 void	ft_putstr_fd(char *s, int fd)
 {
 	if (!s)
 		return ;
 	write(fd, s, ft_strlen(s));
 }
-int	ft_usleep(size_t milliseconds, t_philo_data *philos)
+int	ft_usleep(size_t milliseconds)
 {
 	size_t	start;
 
 	start = get_current_time_in_miliseconds();
 	while ((get_current_time_in_miliseconds() - start) < milliseconds)
 	{
-		if (is_dead_daily_check(philos))
-			return (1);
 		usleep(500);
 	}
 	return (0);
