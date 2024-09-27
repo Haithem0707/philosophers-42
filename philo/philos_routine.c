@@ -10,7 +10,7 @@ bool	is_dead_daily_check(t_philo_data *philo)
 }
 
 int	take_fork(pthread_mutex_t *fork, pthread_mutex_t *fork_mutex,
-		int *fork_taken, t_philo_data *philos, char *status_msg)
+		int *fork_taken, t_philo_data *philos)
 {
 	pthread_mutex_lock(fork_mutex);
 	if (*fork_taken == 0)
@@ -18,7 +18,7 @@ int	take_fork(pthread_mutex_t *fork, pthread_mutex_t *fork_mutex,
 		*fork_taken = 1;
 		pthread_mutex_unlock(fork_mutex);
 		pthread_mutex_lock(fork);
-		philos_status(status_msg, philos, philos->id);
+		philos_status(CYAN "Has taken a fork", philos, philos->id);
 		return (1);
 	}
 	pthread_mutex_unlock(fork_mutex);
@@ -44,7 +44,7 @@ void	update_meal_status(t_philo_data *philos)
 int	handle_single_philosopher(t_philo_data *philos)
 {
 	if (!take_fork(philos->l_fork, philos->l_fork_taken_mutex,
-			&philos->l_fork_taken, philos, CYAN "Has taken a fork"))
+			&philos->l_fork_taken, philos))
 		return (0);
 	ft_usleep(philos->time_to_die, philos);
 	philos_status(RED "has died", philos, philos->id);
@@ -59,19 +59,24 @@ int	take_forks(t_philo_data *philos)
 	pthread_mutex_t	*first_mutex;
 	pthread_mutex_t	*second_mutex;
 
-	first_fork = (philos->id % 2 == 0) ? philos->l_fork : philos->r_fork;
-	second_fork = (philos->id % 2 == 0) ? philos->r_fork : philos->l_fork;
-	first_mutex = (philos->id
-			% 2 == 0) ? philos->l_fork_taken_mutex : philos->r_fork_taken_mutex;
-	second_mutex = (philos->id
-			% 2 == 0) ? philos->r_fork_taken_mutex : philos->l_fork_taken_mutex;
-	if (!take_fork(first_fork, first_mutex, &philos->l_fork_taken, philos,
-			CYAN "Has taken a fork") || !take_fork(second_fork, second_mutex,
-			&philos->r_fork_taken, philos, CYAN "Has taken a fork"))
+	if (philos->id % 2 == 0)
 	{
-		release_fork(first_fork, first_mutex, &philos->l_fork_taken);
-		return (0);
+		first_fork = philos->l_fork;
+		second_fork = philos->r_fork;
+		first_mutex = philos->l_fork_taken_mutex;
+		second_mutex = philos->r_fork_taken_mutex;
 	}
+	else
+	{
+		first_fork = philos->r_fork;
+		second_fork = philos->l_fork;
+		first_mutex = philos->r_fork_taken_mutex;
+		second_mutex = philos->l_fork_taken_mutex;
+	}
+	if (!take_fork(first_fork, first_mutex, &philos->l_fork_taken, philos)
+		|| !take_fork(second_fork, second_mutex, &philos->r_fork_taken, philos))
+		return (release_fork(first_fork, first_mutex, &philos->l_fork_taken),
+			0);
 	return (1);
 }
 

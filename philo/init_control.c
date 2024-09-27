@@ -27,7 +27,7 @@ void	init_philosophers(t_philo_data *philos, t_control *program,
 		philos[i].meals_eaten = 0;
 		init_input_from_user(&philos[i], av);
 		philos[i].start_time = get_current_time_in_miliseconds();
-		philos[i].last_meal = get_current_time_in_miliseconds();
+		philos[i].last_meal = get_current_time_isudon_miliseconds();
 		philos[i].write_lock = &program->write_lock;
 		philos[i].dead_lock = &program->dead_lock;
 		philos[i].meal_lock = &program->meal_lock;

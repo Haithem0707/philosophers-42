@@ -30,6 +30,14 @@
 # include <time.h>
 # include <unistd.h>
 # define PHILO_MAX 200
+
+typedef enum e_philo_status
+{
+	HAS_TAKEN_FORK,
+	HAS_TAKEN_FORK2,
+	IS_SLEEPING,
+	IS_THINKING,
+}					t_philo_status;
 typedef struct s_philo_data
 {
 	pthread_t		thread;
