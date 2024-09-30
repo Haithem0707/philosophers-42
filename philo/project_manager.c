@@ -32,7 +32,7 @@ bool	is_dead(t_philo_data *philos)
 	{
 		if (philos_dead_or_not(&philos[i], philos[i].time_to_die))
 		{
-			philos_status(YELLOW "died", &philos[i], philos[i].id);
+			philos_status(YELLOW "died 💀", &philos[i], philos[i].id);
 			pthread_mutex_lock(philos[0].dead_lock);
 			*philos->dead = 1;
 			pthread_mutex_unlock(philos[0].dead_lock);

@@ -18,7 +18,6 @@ t_philo_data	*input_from_user(int ac, char **av)
 		philo_tmp->num_eat = atoi(av[5]);
 	}
 	philo_tmp->num_eat_count = 0;
-	philo_tmp->stop = 0;
 	philo_tmp->die = 0;
 	return (philo_tmp);
 }
@@ -29,15 +28,16 @@ t_philo_data	*init_philosophers(int ac, char **av)
 
 	philo_tmp = input_from_user(ac, av);
 	philo_tmp->pid = malloc(sizeof(int) * philo_tmp->num_of_the_fork);
-	if(!philo_tmp->pid)
+	if (!philo_tmp->pid)
 		ft_putstr_fd("The malloc if field in the line 35", 2);
-	sem_unlink("/sem_fork");	
+	sem_unlink("/sem_fork");
 	sem_unlink("/sem_write");
 	sem_unlink("/sem_data");
 	sem_unlink("/sync_sem");
 	philo_tmp->sem_sync = sem_open("/sync_sem", O_CREAT, 0644, 1);
-	philo_tmp->sem_write = sem_open("/sem_write", O_CREAT,0664 , 1);
+	philo_tmp->sem_write = sem_open("/sem_write", O_CREAT, 0664, 1);
 	philo_tmp->sem_data = sem_open("/sem_data", O_CREAT, 0644, 1);
-	philo_tmp->sem_fork = sem_open("/sem_fork", O_CREAT,0664 , philo_tmp->num_of_the_fork);
+	philo_tmp->sem_fork = sem_open("/sem_fork", O_CREAT, 0664,
+			philo_tmp->num_of_the_fork);
 	return (philo_tmp);
 }

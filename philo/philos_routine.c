@@ -18,7 +18,7 @@ int	take_fork(pthread_mutex_t *fork, pthread_mutex_t *fork_mutex,
 		*fork_taken = 1;
 		pthread_mutex_unlock(fork_mutex);
 		pthread_mutex_lock(fork);
-		philos_status(CYAN "Has taken a fork", philos, philos->id);
+		philos_status(CYAN "Has taken a fork 🍴", philos, philos->id);
 		return (1);
 	}
 	pthread_mutex_unlock(fork_mutex);
@@ -112,11 +112,11 @@ void	sleeping(t_philo_data *philos)
 
 void	*philos_daily_routine(void *pointer)
 {
-	t_philo_data *philos = (t_philo_data *)pointer;
+	t_philo_data	*philos;
 
+	philos = (t_philo_data *)pointer;
 	if (philos->id % 2 == 0)
 		ft_usleep(1, philos);
-
 	while (!is_dead_daily_check(philos))
 	{
 		eating(philos);

@@ -1,8 +1,6 @@
 
 
 #include "philo_header.h"
-#include <bits/pthreadtypes.h>
-#include <pthread.h>
 
 int	ft_atoi(const char *str)
 {

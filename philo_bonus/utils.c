@@ -1,14 +1,11 @@
-
-
 #include "philo_header.h"
 #include <semaphore.h>
 
 void	philo_print(t_philo_data *philo, char *str)
 {
 	sem_wait(philo->sem_write);
-	if (!philo->stop)
-		printf("%lld %d %s\n", get_current_time_in_miliseconds()
-			- philo->time_to_start, philo->index, str);
+	printf("%lld %d %s\n", get_current_time_in_miliseconds()
+		- philo->time_to_start, philo->index, str);
 	sem_post(philo->sem_write);
 }
 int	ft_atoi(const char *str)
@@ -58,7 +55,7 @@ void	ft_putstr_fd(char *s, int fd)
 		return ;
 	write(fd, s, ft_strlen(s));
 }
-void 	ft_usleep(long  long milliseconds,t_philo_data * philo)
+void	ft_usleep(long long milliseconds, t_philo_data *philo)
 {
 	long long	start_time;
 
@@ -66,12 +63,12 @@ void 	ft_usleep(long  long milliseconds,t_philo_data * philo)
 	while (1)
 	{
 		sem_wait(philo->sem_data);
-		if (philo->stop || get_current_time_in_miliseconds() - start_time >= milliseconds)
+		if (get_current_time_in_miliseconds() - start_time >= milliseconds)
 		{
-			sem_post(philo->sem_data);  
+			sem_post(philo->sem_data);
 			break ;
 		}
-		sem_post(philo->sem_data); 
+		sem_post(philo->sem_data);
 		usleep(500);
 	}
 }

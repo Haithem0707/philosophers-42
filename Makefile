@@ -9,7 +9,8 @@ TARGET = philo
 TARGET_BONUS = philo_bonus
 SOURCES = philo/philo_int_main.c philo/utils.c philo/error_managment.c philo/init_control.c philo/thread_creation.c philo/project_manager.c \
 		  philo/philos_routine.c
-BSOURCES = philo_bonus/philo_int_main.c philo_bonus/utils.c philo_bonus/error_managment.c 
+BSOURCES = philo_bonus/philo_int_main.c philo_bonus/utils.c philo_bonus/error_managment.c philo_bonus/init_control.c \
+			philo_bonus/program_clean_up.c philo_bonus/philos_routine.c 
 SRCDIR = philo/
 BSRCDIR = philo_bonus/
 BUILDDIR = philo/build
@@ -19,7 +20,7 @@ REMOVING_ICON = 🛠️
 OBJECTS = $(SOURCES:$(SRCDIR)%.c=$(BUILDDIR)/%.o)
 BOBJECTS = $(BSOURCES:$(BSRCDIR)%.c=$(BBUILDDIR)/%.o)
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=thread 
+CFLAGS = -Wall -Wextra -Werror -fsanitize=thread
 
 all: $(TARGET) credit
 

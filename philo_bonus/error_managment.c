@@ -2,27 +2,17 @@
 
 void	throw_error(int error_num)
 {
-	if (error_num == 1)
-		ft_putstr_fd(YELLOW "The number of argument should be 5 " EMOJI_FIRE,
-			2);
-	if (error_num == 2)
-		ft_putstr_fd(YELLOW "Input It's not Number Or the philosopher is more than 200 or less Than 0" EMOJI_FIRE,
-			2);
-	if (error_num == 3)
-		ft_putstr_fd(YELLOW "Input It's not Number Or The Time to Die is less than 0" EMOJI_FIRE,
-			2);
-	if (error_num == 4)
-		ft_putstr_fd(YELLOW "Input It's not Number Or The Time to Eat is less than 0" EMOJI_FIRE,
-			2);
-	if (error_num == 5)
-		ft_putstr_fd(YELLOW "Input It's not Number Or The Time to Sleep is less than 0" EMOJI_FIRE,
-			2);
-	if (error_num == 6)
-		ft_putstr_fd(YELLOW "Input It's not Number Or The Philo must eat is less than 0" EMOJI_FIRE,
-			2);
-	if (error_num == 7)
-		ft_putstr_fd(YELLOW "The Function GetTimeofday() get fiel" EMOJI_FIRE,
-			2);
+	const char	*messages[] = {"Invalid error number",
+			YELLOW "The number of argument should be 5 " EMOJI_FIRE,
+			YELLOW "Input is not a number or philosophers are more than 200 or less than 0 " EMOJI_FIRE,
+			YELLOW "Input is not a number or Time to Die is less than 0 " EMOJI_FIRE,
+			YELLOW "Input is not a number or Time to Eat is less than 0 " EMOJI_FIRE,
+			YELLOW "Input is not a number or Time to Sleep is less than 0 " EMOJI_FIRE,
+			YELLOW "Input is not a number or Philo must eat is less than 0 " EMOJI_FIRE,
+			YELLOW "The function gettimeofday() failed " EMOJI_FIRE};
+
+	if (error_num > 0 && error_num < 8)
+		ft_putstr_fd((char *)messages[error_num], 2);
 }
 
 bool	is_number(char *input)

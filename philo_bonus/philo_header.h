@@ -1,6 +1,5 @@
 #ifndef PHILO_HEADER
 # define PHILO_HEADER
-# include <sched.h>
 # define RESET "\x1b[0m"
 # define BLACK "\x1b[30m"
 # define RED "\x1b[31m"
@@ -12,6 +11,7 @@
 # define WHITE "\x1b[37m"
 
 # define EMOJI_FIRE "\U0001F525"
+# define PHILO_MAX 200
 
 # include <fcntl.h>
 # include <limits.h>
@@ -28,7 +28,6 @@
 # include <time.h>
 # include <unistd.h>
 
-# define PHILO_MAX 200
 typedef struct s_philo_data
 {
 	int				time_to_eat;
@@ -38,13 +37,13 @@ typedef struct s_philo_data
 	int				num_of_the_fork;
 	int				num_eat;
 	int				num_eat_count;
-	int				stop;
 	int				die;
 	int				*pid;
 	sem_t			*sem_write;
 	sem_t			*sem_fork;
 	sem_t			*sem_data;
-	sem_t 			*sem_sync;
+	sem_t			*sem_sync;
+	sem_t			*time_data;
 	long long int	time_to_start;
 	int				index;
 	long long int	time_to_meal;
