@@ -1,5 +1,17 @@
-#ifndef PHILO_HEADER
-# define PHILO_HEADER
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_header.h                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hbendjab <hbendjab@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/30 20:00:32 by hbendjab          #+#    #+#             */
+/*   Updated: 2024/09/30 21:20:02 by hbendjab         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef PHILO_HEADER_H
+# define PHILO_HEADER_H
 # define RESET "\x1b[0m"
 # define BLACK "\x1b[30m"
 # define RED "\x1b[31m"
@@ -31,13 +43,6 @@
 # include <unistd.h>
 # define PHILO_MAX 200
 
-typedef enum e_philo_status
-{
-	HAS_TAKEN_FORK,
-	HAS_TAKEN_FORK2,
-	IS_SLEEPING,
-	IS_THINKING,
-}					t_philo_status;
 typedef struct s_philo_data
 {
 	pthread_t		thread;
@@ -81,17 +86,26 @@ void				init_control(t_control *program, t_philo_data *philos);
 void				init_fork(pthread_mutex_t *fork,
 						pthread_mutex_t *fork_taken, int number_of_philos);
 void				init_philosophers(t_philo_data *philos, t_control *program,
-						pthread_mutex_t *fork, pthread_mutex_t *fork_taken,
-						char **av);
+						pthread_mutex_t *fork, pthread_mutex_t *fork_taken);
+void				init_input_from_user(t_philo_data *philo, char **av);
 void				init_input_from_user(t_philo_data *philo, char **av);
 void				*project_manager(void *pointer);
-void				thread_creation(t_control *program, pthread_mutex_t *fork);
+void				thread_creation(t_control *program, pthread_mutex_t *fork,
+						pthread_mutex_t *fork_taken);
 void				*philos_daily_routine(void *pointer);
 void				philos_status(char *str, t_philo_data *philos,
 						int philos_id);
 bool				is_dead(t_philo_data *philos);
 void				destroy_all(char *str, t_control *program,
-						pthread_mutex_t *fork);
+						pthread_mutex_t *fork, pthread_mutex_t *fork_taken);
 
 bool				is_dead_daily_check(t_philo_data *philo);
+void				eating(t_philo_data *philos);
+int					take_forks(t_philo_data *philos);
+int					take_fork(pthread_mutex_t *fork,
+						pthread_mutex_t *fork_mutex, int *fork_taken,
+						t_philo_data *philos);
+void				release_fork(pthread_mutex_t *fork,
+						pthread_mutex_t *fork_mutex, int *fork_taken);
+size_t				ft_strlen(const char *s);
 #endif

@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hbendjab <hbendjab@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/30 19:10:48 by hbendjab          #+#    #+#             */
+/*   Updated: 2024/09/30 21:20:18 by hbendjab         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "philo_header.h"
 
@@ -43,7 +53,8 @@ size_t	ft_strlen(const char *s)
 	return (counter);
 }
 
-void	destroy_all(char *str, t_control *program, pthread_mutex_t *fork)
+void	destroy_all(char *str, t_control *program, pthread_mutex_t *fork,
+		pthread_mutex_t *fork_taken)
 {
 	int	i;
 
@@ -56,32 +67,7 @@ void	destroy_all(char *str, t_control *program, pthread_mutex_t *fork)
 	while (i < program->philos[0].num_of_philos)
 	{
 		pthread_mutex_destroy(&fork[i]);
+		pthread_mutex_destroy(&fork_taken[i]);
 		i++;
 	}
-}
-void	ft_putstr_fd(char *s, int fd)
-{
-	if (!s)
-		return ;
-	write(fd, s, ft_strlen(s));
-}
-int	ft_usleep(size_t milliseconds, t_philo_data *philos)
-{
-	size_t	start;
-
-	start = get_current_time_in_miliseconds();
-	while ((get_current_time_in_miliseconds() - start) < milliseconds)
-	{
-		if (is_dead_daily_check(philos))
-			return (1);
-		usleep(500);
-	}
-	return (0);
-}
-size_t	get_current_time_in_miliseconds(void)
-{
-	struct timeval time;
-	if (gettimeofday(&time, NULL) == -1)
-		throw_error(7);
-	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }

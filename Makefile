@@ -8,7 +8,7 @@ RESET = \033[0m
 TARGET = philo
 TARGET_BONUS = philo_bonus
 SOURCES = philo/philo_int_main.c philo/utils.c philo/error_managment.c philo/init_control.c philo/thread_creation.c philo/project_manager.c \
-		  philo/philos_routine.c
+		  philo/philos_routine.c philo/philo_eating.c philo/philo_eating_helper.c philo/utils2.c
 BSOURCES = philo_bonus/philo_int_main.c philo_bonus/utils.c philo_bonus/error_managment.c philo_bonus/init_control.c \
 			philo_bonus/program_clean_up.c philo_bonus/philos_routine.c 
 SRCDIR = philo/
@@ -49,7 +49,7 @@ clean:
 fclean: clean
 	@echo "$(RED)Removing executable...$(RESET) $(REMOVING_ICON)"
 	@rm -f philo/$(TARGET)
-	@rm -f philo_bonus/$(TARGET)
+	@rm -f philo_bonus/$(TARGET_BONUS)
 
 re: fclean all
 

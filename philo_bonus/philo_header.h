@@ -1,5 +1,17 @@
-#ifndef PHILO_HEADER
-# define PHILO_HEADER
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_header.h                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hbendjab <hbendjab@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/30 21:25:28 by hbendjab          #+#    #+#             */
+/*   Updated: 2024/09/30 21:35:27 by hbendjab         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef PHILO_HEADER_H
+# define PHILO_HEADER_H
 # define RESET "\x1b[0m"
 # define BLACK "\x1b[30m"
 # define RED "\x1b[31m"
@@ -59,5 +71,6 @@ void				ft_usleep(long long milliseconds, t_philo_data *philo);
 t_philo_data		*init_philosophers(int ac, char **av);
 void				philosopher_routine(t_philo_data *philo);
 void				program_clean_up(t_philo_data **philo);
+void				program_clean_up2(t_philo_data **philo);
 void				philo_print(t_philo_data *philo, char *str);
 #endif

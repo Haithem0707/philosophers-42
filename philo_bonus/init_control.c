@@ -1,4 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_control.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hbendjab <hbendjab@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/30 21:25:22 by hbendjab          #+#    #+#             */
+/*   Updated: 2024/09/30 21:38:15 by hbendjab         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo_header.h"
+
+void	philo_print(t_philo_data *philo, char *str)
+{
+	sem_wait(philo->sem_write);
+	printf("%lld %d %s\n", get_current_time_in_miliseconds()
+		- philo->time_to_start, philo->index, str);
+	sem_post(philo->sem_write);
+}
 
 t_philo_data	*input_from_user(int ac, char **av)
 {

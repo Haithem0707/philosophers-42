@@ -1,13 +1,17 @@
-#include "philo_header.h"
-#include <semaphore.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hbendjab <hbendjab@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/30 21:35:57 by hbendjab          #+#    #+#             */
+/*   Updated: 2024/09/30 21:38:51 by hbendjab         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	philo_print(t_philo_data *philo, char *str)
-{
-	sem_wait(philo->sem_write);
-	printf("%lld %d %s\n", get_current_time_in_miliseconds()
-		- philo->time_to_start, philo->index, str);
-	sem_post(philo->sem_write);
-}
+#include "philo_header.h"
+
 int	ft_atoi(const char *str)
 {
 	int					i;
@@ -55,6 +59,7 @@ void	ft_putstr_fd(char *s, int fd)
 		return ;
 	write(fd, s, ft_strlen(s));
 }
+
 void	ft_usleep(long long milliseconds, t_philo_data *philo)
 {
 	long long	start_time;
@@ -75,7 +80,8 @@ void	ft_usleep(long long milliseconds, t_philo_data *philo)
 
 long long	get_current_time_in_miliseconds(void)
 {
-	struct timeval time;
+	struct timeval	time;
+
 	if (gettimeofday(&time, NULL) == -1)
 		throw_error(7);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);

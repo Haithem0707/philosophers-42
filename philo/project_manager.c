@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   project_manager.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hbendjab <hbendjab@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/30 19:11:03 by hbendjab          #+#    #+#             */
+/*   Updated: 2024/09/30 19:53:22 by hbendjab         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo_header.h"
 
 void	philos_status(char *str, t_philo_data *philos, int philos_id)
@@ -42,6 +54,7 @@ bool	is_dead(t_philo_data *philos)
 	}
 	return (false);
 }
+
 bool	is_eat(t_philo_data *philos)
 {
 	int	i;

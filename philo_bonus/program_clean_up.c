@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   program_clean_up.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hbendjab <hbendjab@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/30 21:25:45 by hbendjab          #+#    #+#             */
+/*   Updated: 2024/09/30 21:40:17 by hbendjab         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo_header.h"
 
 void	program_clean_up(t_philo_data **philo)
@@ -20,6 +32,13 @@ void	program_clean_up(t_philo_data **philo)
 		}
 		i++;
 	}
+}
+
+void	program_clean_up2(t_philo_data **philo)
+{
+	t_philo_data	*tmp;
+
+	tmp = *philo;
 	sem_close(tmp->sem_fork);
 	sem_close(tmp->sem_data);
 	sem_close(tmp->sem_write);
