@@ -1,7 +1,6 @@
 #ifndef PHILO_HEADER
 # define PHILO_HEADER
-# include <semaphore.h>
-# include <sys/types.h>
+# include <sched.h>
 # define RESET "\x1b[0m"
 # define BLACK "\x1b[30m"
 # define RED "\x1b[31m"
@@ -12,60 +11,54 @@
 # define CYAN "\x1b[36m"
 # define WHITE "\x1b[37m"
 
-# define EMOJI_WORLD "\U0001F30D"
 # define EMOJI_FIRE "\U0001F525"
-# define EMOJI_THUMBSUP "\U0001F44D"
-# define EMOJI_SMILE "\U0001F60A"
-# define EMOJI_CHECK "\U00002705"
-# define EMOJI_CROSS "\U0000274C"
-# define THINKING "\U0001F914"
-# define SLEEPING "\U0001F634"
-# define FORKING "\U0001F374"
-# define EATING "\U0001F37D"
+
+# include <fcntl.h>
 # include <limits.h>
 # include <pthread.h>
+# include <semaphore.h>
+# include <signal.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <sys/time.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 # include <time.h>
 # include <unistd.h>
-#include <semaphore.h>
+
 # define PHILO_MAX 200
-
-typedef struct s_control
-{
-	sem_t			*forks;
-	sem_t			*message;
-	sem_t			*death;
-	sem_t			*stop;
-	unsigned int	start;
-	int				philo_number;
-	int				time_to_die;
-	int				time_to_sleep;
-	int				time_to_think;
-	int				time_to_eat;
-	int				eat_counter;
-	int				max_eat;
-	int				current_eat;
-
-}					t_control;
 typedef struct s_philo_data
 {
-	t_control		*data;
-	pid_t			pid;
-	unsigned int	eating_time;
-	unsigned int	next_meal;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				time_to_die;
+	int				number_of_the_philo;
+	int				num_of_the_fork;
+	int				num_eat;
+	int				num_eat_count;
+	int				stop;
+	int				die;
+	int				*pid;
+	sem_t			*sem_write;
+	sem_t			*sem_fork;
+	sem_t			*sem_data;
+	sem_t 			*sem_sync;
+	long long int	time_to_start;
 	int				index;
-	int				is_dead;
-	int				eat_counter;
+	long long int	time_to_meal;
+	pthread_t		project_manager;
+
 }					t_philo_data;
 void				ft_putstr_fd(char *s, int fd);
 int					ft_atoi(const char *str);
 void				throw_error(int error_num);
 bool				is_valid(char **user_input);
-size_t				get_current_time_in_miliseconds(void);
-int					ft_usleep(size_t milliseconds);
-
+long long			get_current_time_in_miliseconds(void);
+void				ft_usleep(long long milliseconds, t_philo_data *philo);
+t_philo_data		*init_philosophers(int ac, char **av);
+void				philosopher_routine(t_philo_data *philo);
+void				program_clean_up(t_philo_data **philo);
+void				philo_print(t_philo_data *philo, char *str);
 #endif

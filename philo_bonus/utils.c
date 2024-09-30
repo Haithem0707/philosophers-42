@@ -1,6 +1,16 @@
 
 
 #include "philo_header.h"
+#include <semaphore.h>
+
+void	philo_print(t_philo_data *philo, char *str)
+{
+	sem_wait(philo->sem_write);
+	if (!philo->stop)
+		printf("%lld %d %s\n", get_current_time_in_miliseconds()
+			- philo->time_to_start, philo->index, str);
+	sem_post(philo->sem_write);
+}
 int	ft_atoi(const char *str)
 {
 	int					i;
@@ -48,18 +58,25 @@ void	ft_putstr_fd(char *s, int fd)
 		return ;
 	write(fd, s, ft_strlen(s));
 }
-int	ft_usleep(size_t milliseconds)
+void 	ft_usleep(long  long milliseconds,t_philo_data * philo)
 {
-	size_t	start;
+	long long	start_time;
 
-	start = get_current_time_in_miliseconds();
-	while ((get_current_time_in_miliseconds() - start) < milliseconds)
+	start_time = get_current_time_in_miliseconds();
+	while (1)
 	{
+		sem_wait(philo->sem_data);
+		if (philo->stop || get_current_time_in_miliseconds() - start_time >= milliseconds)
+		{
+			sem_post(philo->sem_data);  
+			break ;
+		}
+		sem_post(philo->sem_data); 
 		usleep(500);
 	}
-	return (0);
 }
-size_t	get_current_time_in_miliseconds(void)
+
+long long	get_current_time_in_miliseconds(void)
 {
 	struct timeval time;
 	if (gettimeofday(&time, NULL) == -1)
