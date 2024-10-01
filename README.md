@@ -88,18 +88,15 @@
         <a href="#learning">Key Learning Points</a>
         <a href="#testing">Testing Guidelines</a>
     </nav>
-
     <div class="container">
         <div class="content" id="overview">
             <h2 class="section-title">Project Overview</h2>
             <p>The `philo` project aims to simulate the classic "Dining Philosophers" problem using C. This problem involves philosophers sitting at a table with forks between each of them, where each philosopher must alternate between eating, thinking, and sleeping without causing any deadlock. The project tests your ability to manage synchronization, concurrency, and resource sharing in multi-threaded and multi-process environments.</p>
         </div>
-
         <div class="content" id="mandatory">
             <h2 class="section-title">Mandatory Part</h2>
             <h3>Goal</h3>
             <p>The goal of the mandatory part is to implement the Dining Philosophers problem using multi-threading. Each philosopher is represented by a thread, and forks are shared resources that must be protected to avoid race conditions.</p>
-
             <h3>Implementation Details</h3>
             <p>Key considerations include:</p>
             <ul>
@@ -108,19 +105,16 @@
                 <li>Handling edge cases such as philosophers picking up forks simultaneously.</li>
             </ul>
         </div>
-
         <div class="content" id="bonus">
             <h2 class="section-title">Bonus Part</h2>
             <h3>Goal</h3>
             <p>The bonus part involves modifying the program to use multi-processes instead of multi-threading. Each philosopher is represented by a process, and inter-process communication is managed using semaphores.</p>
-
             <h3>Key Differences</h3>
             <ul>
                 <li>Processes do not share memory space, so managing shared resources is more complex.</li>
                 <li>Additional handling of process termination and cleanup is required.</li>
             </ul>
         </div>
-
         <div class="content" id="structure">
             <h2 class="section-title">Directory Structure</h2>
             <p>The directory structure for the project is as follows:</p>
@@ -149,7 +143,6 @@
 │   └── utils.c
             </pre>
         </div>
-
         <div class="content" id="files">
             <h2 class="section-title">Detailed File Descriptions</h2>
             <ul>
@@ -165,7 +158,6 @@
                 <li><strong>utils.c / utils2.c:</strong> Contains utility functions for common operations.</li>
             </ul>
         </div>
-
         <div class="content" id="learning">
             <h2 class="section-title">Key Learning Points</h2>
             <p>Through this project, you will learn:</p>
@@ -176,7 +168,6 @@
                 <li>Advanced process handling and inter-process communication.</li>
             </ul>
         </div>
-
         <div class="content" id="testing">
             <h2 class="section-title">Testing Guidelines</h2>
             <p>To ensure your implementation is correct, consider the following testing scenarios:</p>
@@ -187,7 +178,6 @@
             </ul>
         </div>
     </div>
-
     <footer>
         <p>&copy; 2024 Philo Project - Documentation by Haithem Bendjaballah</p>
     </footer>
