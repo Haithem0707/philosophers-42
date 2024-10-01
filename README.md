@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Philo Project Documentation</title>
 </head>
 <body style="font-family: Arial, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; margin: 0; padding: 0;">
     <header style="background: #35424a; color: #ffffff; padding: 30px 0; text-align: center; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
@@ -37,7 +38,7 @@ Key requirements include:
                 </pre>
             </div>
         </div>
-        <!-- Bonus Part -->
+        <!-- bonus Part -->
         <div id="bonus" style="background: #ffffff; padding: 20px 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); margin-bottom: 30px;">
             <h2 style="border-bottom: 2px solid #e8491d; padding-bottom: 10px; margin-bottom: 20px; font-size: 24px; font-weight: bold;">🚀 Bonus Part</h2>
             <p><strong>Goal:</strong> The bonus part extends the project by requiring a multi-process implementation 🚦. Each philosopher is represented as an independent process, with forks and other resources shared using semaphores 📊.</p>
@@ -73,4 +74,43 @@ Key considerations:
 │   ├── Makefile 📝
 │   ├── error_management.c ❗
 │   ├── init_control.c 🛠️
-    </pre>
+│   ├── philo_header.h 📂
+│   ├── philo_int_main.c 🏁
+│   ├── philos_routine.c 🔄
+│   ├── program_clean_up.c 🧹
+│   └── utils.c 🔧
+            </pre>
+            <p>Each file serves a specific purpose:</p>
+            <ul>
+                <li><strong>Makefile:</strong> Used for building the project and managing dependencies.</li>
+                <li><strong>error_management.c:</strong> Contains functions for error handling and reporting.</li>
+                <li><strong>init_control.c:</strong> Responsible for initializing control variables and structures.</li>
+                <li><strong>philo_eating.c:</strong> Implements the eating behavior of philosophers.</li>
+                <li><strong>philo_header.h:</strong> Contains header declarations and constants used across the project.</li>
+                <li><strong>philos_routine.c:</strong> Manages the routine of philosophers (eating, thinking, sleeping).</li>
+                <li><strong>project_manager.c:</strong> Oversees project execution and flow.</li>
+                <li><strong>thread_creation.c:</strong> Manages the creation and handling of threads.</li>
+                <li><strong>utils.c & utils2.c:</strong> Provide utility functions used throughout the project.</li>
+                <li><strong>program_clean_up.c:</strong> Handles cleanup of processes and resources in the bonus part.</li>
+            </ul>
+        </div>
+        <!-- Key Learning Points -->
+        <div id="learning-points" style="background: #ffffff; padding: 20px 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+            <h2 style="border-bottom: 2px solid #e8491d; padding-bottom: 10px; margin-bottom: 20px; font-size: 24px; font-weight: bold;">📚 Key Learning Points</h2>
+            <p>By completing this project, you will:</p>
+            <ul>
+                <li>Understand the principles of thread management and synchronization.</li>
+                <li>Learn how to handle concurrency issues such as race conditions and deadlocks.</li>
+                <li>Gain experience with process management and inter-process communication.</li>
+                <li>Enhance your problem-solving skills in system programming.</li>
+                <li>Develop best practices for writing clean, maintainable code.</li>
+            </ul>
+            <p>This project will prepare you for real-world challenges in software development and systems programming 🌍.</p>
+        </div>
+    </div>
+    <footer style="text-align: center; padding: 20px; background-color: #35424a; color: white; margin-top: 30px; box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);">
+        <p>© 2024 Haithem Bendjaballah. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
