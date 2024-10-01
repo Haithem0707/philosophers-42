@@ -14,40 +14,47 @@
         <a href="#mandatory" style="color: #ffffff; padding: 10px 20px; text-decoration: none; font-weight: 500;">🛠️ Mandatory Part</a>
         <a href="#bonus" style="color: #ffffff; padding: 10px 20px; text-decoration: none; font-weight: 500;">🚀 Bonus Part</a>
         <a href="#structure" style="color: #ffffff; padding: 10px 20px; text-decoration: none; font-weight: 500;">📂 Directory Structure</a>
-        <a href="#file-descriptions" style="color: #ffffff; padding: 10px 20px; text-decoration: none; font-weight: 500;">🗃️ File Descriptions</a>
         <a href="#learning-points" style="color: #ffffff; padding: 10px 20px; text-decoration: none; font-weight: 500;">📚 Key Learning Points</a>
-        <a href="#testing" style="color: #ffffff; padding: 10px 20px; text-decoration: none; font-weight: 500;">✅ Testing Guidelines</a>
     </nav>
     <div style="width: 80%; margin: auto; padding: 20px; overflow: hidden;">
+        <!-- Project Overview -->
         <div id="overview" style="background: #ffffff; padding: 20px 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); margin-bottom: 30px;">
             <h2 style="border-bottom: 2px solid #e8491d; padding-bottom: 10px; margin-bottom: 20px; font-size: 24px; font-weight: bold;">📖 Project Overview</h2>
-            <p>The `philo` project aims to simulate the classic "Dining Philosophers" problem 🍽️. This problem involves philosophers 🧠 sitting at a table with forks 🍴 between each of them, where each philosopher must alternate between eating 🍝, thinking 💭, and sleeping 💤 without causing any deadlock. The project tests your ability to manage synchronization 🔄, concurrency 🔀, and resource sharing in multi-threaded and multi-process environments.</p>
+            <p>The `philo` project is a well-known concurrency problem inspired by the classic "Dining Philosophers" problem 🍽️. The project is designed to test your understanding of multi-threading, process synchronization, and resource management in concurrent environments. By working through this project, students will gain deeper insights into managing shared resources, preventing deadlocks, and ensuring data consistency when dealing with multiple threads or processes 🔄.</p>
+            <p>Throughout the project, you’ll encounter challenges related to mutex locks, semaphores, and shared memory handling, which are critical concepts in systems programming 💻.</p>
         </div>
+        <!-- Mandatory Part -->
         <div id="mandatory" style="background: #ffffff; padding: 20px 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); margin-bottom: 30px;">
             <h2 style="border-bottom: 2px solid #e8491d; padding-bottom: 10px; margin-bottom: 20px; font-size: 24px; font-weight: bold;">🛠️ Mandatory Part</h2>
-            <p><strong>Goal:</strong> The goal of the mandatory part is to implement the Dining Philosophers problem using multi-threading 🧵. Each philosopher is represented by a thread, and forks are shared resources that must be protected to avoid race conditions ⚠️.</p>
+            <p><strong>Goal:</strong> The mandatory part focuses on implementing the Dining Philosophers problem using multi-threading 🧵. Each philosopher is represented as a thread, and forks are shared resources protected by mutexes 🔒 to avoid race conditions ⚠️.</p>
+            <p>This part emphasizes the proper use of thread synchronization mechanisms and managing concurrent access to shared resources. You will need to ensure that no philosopher starves 🚫, that deadlocks are avoided ❌, and that each philosopher alternates between eating 🍽️, thinking 💭, and sleeping 💤 without interference.</p>
             <div style="background: #f4f4f4; padding: 15px; margin: 20px 0; border-left: 4px solid #35424a; overflow-x: auto; border-radius: 4px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
                 <pre>
-Key considerations include:
-- Ensuring no philosopher starves 🚫.
-- Properly managing mutexes 🔒 to avoid deadlocks ❌.
-- Handling edge cases such as philosophers picking up forks simultaneously ⏱️.
+Key requirements include:
+- Implementing the behavior of each philosopher as a separate thread.
+- Ensuring that no two adjacent philosophers pick up the same fork simultaneously.
+- Avoiding deadlock situations by managing the order of lock acquisition.
                 </pre>
             </div>
         </div>
+        <!-- Bonus Part -->
         <div id="bonus" style="background: #ffffff; padding: 20px 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); margin-bottom: 30px;">
             <h2 style="border-bottom: 2px solid #e8491d; padding-bottom: 10px; margin-bottom: 20px; font-size: 24px; font-weight: bold;">🚀 Bonus Part</h2>
-            <p><strong>Goal:</strong> The bonus part involves modifying the program to use multi-processes instead of multi-threading 🚦. Each philosopher is represented by a process, and inter-process communication is managed using semaphores 📊.</p>
+            <p><strong>Goal:</strong> The bonus part extends the project by requiring a multi-process implementation 🚦. Each philosopher is represented as an independent process, with forks and other resources shared using semaphores 📊.</p>
+            <p>In this part, you’ll need to manage inter-process communication and ensure that all processes synchronize correctly, as processes do not share the same memory space 🧠. This implementation is more complex and requires careful handling of process creation, termination, and cleanup 🧹.</p>
             <div style="background: #f4f4f4; padding: 15px; margin: 20px 0; border-left: 4px solid #35424a; overflow-x: auto; border-radius: 4px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
                 <pre>
-Key Differences:
-- Processes do not share memory space 🧠, so managing shared resources is more complex 🔄.
-- Additional handling of process termination and cleanup 🧹 is required.
+Key considerations:
+- Using semaphores to control access to shared resources.
+- Implementing logic to detect when a philosopher has finished eating and terminate processes accordingly.
+- Ensuring proper process cleanup to prevent orphan or zombie processes.
                 </pre>
             </div>
         </div>
+        <!-- Directory Structure -->
         <div id="structure" style="background: #ffffff; padding: 20px 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); margin-bottom: 30px;">
             <h2 style="border-bottom: 2px solid #e8491d; padding-bottom: 10px; margin-bottom: 20px; font-size: 24px; font-weight: bold;">📂 Directory Structure</h2>
+            <p>The directory structure for the `philo` project is as follows. This organization helps maintain a clean and understandable layout, making it easier for students to navigate the project and find relevant files.</p>
             <pre style="white-space: pre; background: #f4f4f4; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); margin-bottom: 30px;">
 ├── philo
 │   ├── Makefile 📝
@@ -66,12 +73,4 @@ Key Differences:
 │   ├── Makefile 📝
 │   ├── error_management.c ❗
 │   ├── init_control.c 🛠️
-│   ├── philo_header.h 📂
-│   ├── philo_int_main.c 🏁
-│   ├── philos_routine.c 🔄
-│   ├── program_clean_up.c 🧹
-│   └── utils.c 🔧
-            </pre>
-        </div>
-        <div id="file-descriptions" style="background: #ffffff; padding: 20px 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); margin-bottom: 30px;">
-            <h2 style="border-bottom: 2px solid #e8491d; padding-bottom: 10px; margin-bottom: 20px; font-size: 24px; font-weight: bold;">🗃️ Detailed File
+    </pre>
