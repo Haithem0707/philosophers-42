@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Philo Project Documentation</title>
 </head>
 <body style="font-family: Arial, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; margin: 0; padding: 0;">
     <header style="background: #35424a; color: #ffffff; padding: 30px 0; text-align: center; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
